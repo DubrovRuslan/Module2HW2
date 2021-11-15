@@ -2,13 +2,13 @@
 
 namespace Module2HW2.Providers
 {
-    public class DeviceProvider
+    public class EntityProvider
     {
         private int _countEntityes = 0;
         private Entity[] _entities;
         public void AddNewEntity(string name, string model, double price)
         {
-            Entity[] tempEntityes = new Entity[_countEntityes + 1];
+            var tempEntityes = new Entity[_countEntityes + 1];
             for (int i = 0; i < _countEntityes; i++)
             {
                 tempEntityes[i] = _entities[i];
@@ -49,7 +49,7 @@ namespace Module2HW2.Providers
                 }
             }
 
-            Entity[] entitiesFound = new Entity[countFind];
+            var entitiesFound = new Entity[countFind];
             for (int i = 0, j = 0; i < _countEntityes; i++)
             {
                 if (_entities[i].Name.Contains(name))
@@ -78,7 +78,7 @@ namespace Module2HW2.Providers
                 }
             }
 
-            Entity[] entitiesFound = new Entity[countFind];
+            var entitiesFound = new Entity[countFind];
             for (int i = 0, j = 0; i < _countEntityes; i++)
             {
                 if (_entities[i].Model.Contains(model))
@@ -107,7 +107,7 @@ namespace Module2HW2.Providers
                 }
             }
 
-            Entity[] entitiesFound = new Entity[countFind];
+            var entitiesFound = new Entity[countFind];
             for (int i = 0, j = 0; i < _countEntityes; i++)
             {
                 if (_entities[i].Price >= minPrice && _entities[i].Price <= maxPrice)
@@ -141,7 +141,7 @@ namespace Module2HW2.Providers
                 }
             }
 
-            Entity[] tempEntityes = new Entity[_countEntityes - idToDelete.Length];
+            var tempEntityes = new Entity[_countEntityes - idToDelete.Length];
             for (int i = 0, j = 0; i < _countEntityes; i++)
             {
                 var deleteFlag = false;

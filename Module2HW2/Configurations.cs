@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 namespace Module2HW2
 {
-    public sealed class Configurations
+    public class Configurations
     {
         private static readonly Configurations _instance = new Configurations();
 

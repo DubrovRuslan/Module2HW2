@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Module2HW2
 {
-    public sealed class Logger
+    public class Logger
     {
         private static readonly Logger _instance = new Logger();
         private readonly StringBuilder _log;

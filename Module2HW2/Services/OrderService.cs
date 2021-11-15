@@ -10,7 +10,7 @@ namespace Module2HW2.Services
         public int AddOrder(Client client, Device[] devices)
         {
             var newId = (_ordersCount == 0) ? 1 : _orders[_ordersCount - 1].Id + 1;
-            Order[] tempOrders = new Order[_ordersCount + 1];
+            var tempOrders = new Order[_ordersCount + 1];
             for (var i = 0; i < _ordersCount; i++)
             {
                 tempOrders[i] = _orders[i];

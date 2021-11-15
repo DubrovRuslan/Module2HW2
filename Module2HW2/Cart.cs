@@ -2,16 +2,14 @@
 
 namespace Module2HW2
 {
-    public sealed class Cart
+    public class Cart
     {
         private static readonly Cart _instance = new Cart();
-        private static readonly int _maxCartSize;
-        private static Device[] _goodsInCart;
-        private static int _currentDeviceCount = 0;
-        private static double _totalPrice = 0.0;
+        private Device[] _goodsInCart;
+        private int _currentDeviceCount = 0;
+        private double _totalPrice = 0.0;
         static Cart()
         {
-            _maxCartSize = Configurations.Instance.CartSize;
         }
 
         private Cart()
@@ -28,12 +26,12 @@ namespace Module2HW2
 
         public void AddToCart(Device device)
         {
-            if (_currentDeviceCount >= 10)
+            if (_currentDeviceCount >= Configurations.Instance.CartSize)
             {
                 return;
             }
 
-            Device[] cartTemp = new Device[_currentDeviceCount + 1];
+            var cartTemp = new Device[_currentDeviceCount + 1];
             for (var i = 0; i < _currentDeviceCount; i++)
             {
                 cartTemp[i] = _goodsInCart[i];
@@ -54,7 +52,7 @@ namespace Module2HW2
 
         public Device[] Confirm()
         {
-            Device[] orderDevices = _goodsInCart;
+            var orderDevices = _goodsInCart;
             CleanCart();
             return orderDevices;
         }

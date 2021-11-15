@@ -42,7 +42,7 @@ namespace Module2HW2
 
         public void GetFoodsToCart()
         {
-            Device[] devicesClientLikes = _deviceService.GetDeviceByPrice(20000.0, 30000.0);
+            var devicesClientLikes = _deviceService.GetDeviceByPrice(20000.0, 30000.0);
             foreach (var device in devicesClientLikes)
             {
                 _cart.AddToCart(device);
@@ -51,8 +51,8 @@ namespace Module2HW2
 
         public int ConfirmOrder()
         {
-            Device[] orderDevices = _cart.Confirm();
-            var orderNumber = _orderService.AddOrder(_clientService.Clients[0], orderDevices);
+            var orderDevices = _cart.Confirm();
+            var orderNumber = _orderService.AddOrder(_clientService.GetClient(1), orderDevices);
             _deviceService.DeleteDevices(orderDevices);
             return orderNumber;
         }
@@ -61,7 +61,7 @@ namespace Module2HW2
         {
             _logger.WriteToLog("============================");
             _logger.WriteToLog("НА СКЛАДЕ:");
-            Device[] devices = _deviceService.GetAllDevices();
+            var devices = _deviceService.GetAllDevices();
             if (devices != null)
             {
                 foreach (var device in _deviceService.GetAllDevices())
@@ -81,7 +81,7 @@ namespace Module2HW2
             }
 
             _logger.WriteToLog("ЗАКАЗЫ:");
-            Order[] orders = _orderService.GetAllOrders();
+            var orders = _orderService.GetAllOrders();
             if (orders != null)
             {
                 foreach (var order in orders)

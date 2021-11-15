@@ -1,31 +1,32 @@
 ﻿using Module2HW2.Entityes;
+using Module2HW2.Providers;
 
 namespace Module2HW2.Services
 {
     public class ClientService
     {
-        private Client[] _clients;
-        private int _clientCount = 0;
-        public Client[] Clients
+        private ClientProvider _clientProvider;
+        public ClientService()
         {
-            get
+            _clientProvider = new ClientProvider();
+        }
+
+        public Client GetClient(int id)
+        {
+            foreach (var client in _clientProvider.Clients)
             {
-                return _clients;
+                if (client.Id == id)
+                {
+                    return client;
+                }
             }
+
+            return null;
         }
 
         public void AddClient(string firstName, string lastname, int age, string email)
         {
-            var newId = (_clientCount == 0) ? 1 : _clients[_clientCount - 1].Id + 1;
-            Client[] clientsTemp = new Client[_clientCount + 1];
-            for (int i = 0; i < _clientCount; i++)
-            {
-                clientsTemp[i] = _clients[i];
-            }
-
-            clientsTemp[_clientCount] = new Client(newId, firstName, lastname, age, email);
-            _clients = clientsTemp;
-            _clientCount++;
+            _clientProvider.AddClient(firstName, lastname, age, email);
         }
     }
 }
