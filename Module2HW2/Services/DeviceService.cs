@@ -5,35 +5,110 @@ namespace Module2HW2.Services
 {
     public class DeviceService
     {
-        private EntityProvider _entityProvider;
+        private DeviceProvider _deviceProvider;
         public DeviceService()
         {
-            _entityProvider = new EntityProvider();
+            _deviceProvider = new DeviceProvider();
         }
 
         public void AddNewDevice(string name, string model, double price)
         {
-            _entityProvider.AddNewEntity(name, model, price);
+            _deviceProvider.AddNewDevice(name, model, price);
         }
 
         public Device[] GetAllDevices()
         {
-            return ConvertEnityToDevice(_entityProvider.GetAllEntityes());
+            return _deviceProvider.GetAllDevices();
         }
 
         public Device[] GetDeviceByName(string name)
         {
-            return ConvertEnityToDevice(_entityProvider.GetEntityesByName(name));
+            var allDevices = _deviceProvider.GetAllDevices();
+            if (allDevices.Length == 0)
+            {
+                return null;
+            }
+
+            var countFind = 0;
+            foreach (var device in allDevices)
+            {
+                if (device.Name.Contains(name))
+                {
+                    countFind++;
+                }
+            }
+
+            var devicesFound = new Device[countFind];
+            for (int i = 0, j = 0; i < allDevices.Length; i++)
+            {
+                if (allDevices[i].Name.Contains(name))
+                {
+                    devicesFound[j] = allDevices[i];
+                    j++;
+                }
+            }
+
+            return devicesFound;
         }
 
         public Device[] GetDeviceByModel(string model)
         {
-            return ConvertEnityToDevice(_entityProvider.GetEntityesByModel(model));
+            var allDevices = _deviceProvider.GetAllDevices();
+            if (allDevices.Length == 0)
+            {
+                return null;
+            }
+
+            var countFind = 0;
+            foreach (var device in allDevices)
+            {
+                if (device.Model.Contains(model))
+                {
+                    countFind++;
+                }
+            }
+
+            var devicesFound = new Device[countFind];
+            for (int i = 0, j = 0; i < allDevices.Length; i++)
+            {
+                if (allDevices[i].Model.Contains(model))
+                {
+                    devicesFound[j] = allDevices[i];
+                    j++;
+                }
+            }
+
+            return devicesFound;
         }
 
         public Device[] GetDeviceByPrice(double minPrice, double maxPrice)
         {
-            return ConvertEnityToDevice(_entityProvider.GetEntityesByPrice(minPrice, maxPrice));
+            var allDevices = _deviceProvider.GetAllDevices();
+            if (allDevices.Length == 0)
+            {
+                return null;
+            }
+
+            var countFind = 0;
+            foreach (var device in allDevices)
+            {
+                if (device.Price >= minPrice && device.Price <= maxPrice)
+                {
+                    countFind++;
+                }
+            }
+
+            var devicesFound = new Device[countFind];
+            for (int i = 0, j = 0; i < allDevices.Length; i++)
+            {
+                if (allDevices[i].Price >= minPrice && allDevices[i].Price <= maxPrice)
+                {
+                    devicesFound[j] = allDevices[i];
+                    j++;
+                }
+            }
+
+            return devicesFound;
         }
 
         public bool DeleteDevices(Device[] devices)
@@ -44,47 +119,7 @@ namespace Module2HW2.Services
                 devicesId[i] = devices[i].Id;
             }
 
-            return _entityProvider.DeleteEntityes(devicesId);
-        }
-
-        private Entity ConvertDiviceToEntity(Device device)
-        {
-            var entity = new Entity(device.Id);
-            entity.Model = device.Model;
-            entity.Name = device.Name;
-            entity.Price = device.Price;
-            return entity;
-        }
-
-        private Entity[] ConvertDiviceToEntity(Device[] devices)
-        {
-            var entities = new Entity[devices.Length];
-            for (var i = 0; i < devices.Length; i++)
-            {
-                entities[i] = ConvertDiviceToEntity(devices[i]);
-            }
-
-            return entities;
-        }
-
-        private Device ConvertEnityToDevice(Entity entity)
-        {
-            var device = new Device(entity.Id);
-            device.Model = entity.Model;
-            device.Name = entity.Name;
-            device.Price = entity.Price;
-            return device;
-        }
-
-        private Device[] ConvertEnityToDevice(Entity[] entityes)
-        {
-            var devices = new Device[entityes.Length];
-            for (var i = 0; i < entityes.Length; i++)
-            {
-                devices[i] = ConvertEnityToDevice(entityes[i]);
-            }
-
-            return devices;
+            return _deviceProvider.DeleteDevices(devicesId);
         }
     }
 }
