@@ -5,9 +5,9 @@ namespace Module2HW2
 {
     public class Actions
     {
-        private DeviceService _deviceService;
-        private ClientService _clientService;
-        private OrderService _orderService;
+        private readonly DeviceService _deviceService;
+        private readonly ClientService _clientService;
+        private readonly OrderService _orderService;
         private Cart _cart = Cart.Instance;
         private Logger _logger = Logger.Instance;
         public Actions()
