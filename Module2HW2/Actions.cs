@@ -49,11 +49,12 @@ namespace Module2HW2
             }
         }
 
-        public void ConfirmOrder()
+        public int ConfirmOrder()
         {
             Device[] orderDevices = _cart.Confirm();
-            _orderService.AddOrder(_clientService.Clients[0], orderDevices);
+            var orderNumber = _orderService.AddOrder(_clientService.Clients[0], orderDevices);
             _deviceService.DeleteDevices(orderDevices);
+            return orderNumber;
         }
 
         public void SaveCurentStateInLog()

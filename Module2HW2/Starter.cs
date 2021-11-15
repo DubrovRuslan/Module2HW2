@@ -19,8 +19,8 @@ namespace Module2HW2
             _actions.GetFoodsToCart();
             _logger.WriteToLog("ТОВАРЫ ДОБАВЛЕНЫ В КОРЗИНУ");
             _actions.SaveCurentStateInLog();
-            _actions.ConfirmOrder();
-            _logger.WriteToLog("СОЗДАН ЗАКАЗ ИЗ КОРЗИНЫ");
+            var numberOrder = _actions.ConfirmOrder();
+            _logger.WriteToLog($"СОЗДАН ЗАКАЗ №{numberOrder} ИЗ КОРЗИНЫ");
             _actions.SaveCurentStateInLog();
             _actions.PaidOrder();
             File.WriteAllText("log.txt", Logger.Instance.GetAllLog());
