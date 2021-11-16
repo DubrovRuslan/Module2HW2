@@ -15,10 +15,7 @@ namespace Module2HW2.Providers
             }
 
             var newId = (_countEntityes == 0) ? 1 : _entities[_countEntityes - 1].Id + 1;
-            tempEntityes[_countEntityes] = new Device(newId);
-            tempEntityes[_countEntityes].Name = name;
-            tempEntityes[_countEntityes].Model = model;
-            tempEntityes[_countEntityes].Price = price;
+            tempEntityes[_countEntityes] = new Device { Id = newId, Name = name, Model = model, Price = price };
             _entities = tempEntityes;
             _countEntityes++;
         }

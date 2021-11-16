@@ -3,21 +3,10 @@ namespace Module2HW2.Entityes
 {
     public class Order
     {
-        private readonly int _id;
         private Device[] _devices;
         private double _totalPrice;
-        public Order(int id)
-        {
-            _id = id;
-        }
 
-        public int Id
-        {
-            get
-            {
-                return _id;
-            }
-        }
+        public int Id { get; init; }
 
         public Device[] Devices
         {

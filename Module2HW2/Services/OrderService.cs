@@ -16,9 +16,7 @@ namespace Module2HW2.Services
                 tempOrders[i] = _orders[i];
             }
 
-            tempOrders[_ordersCount] = new Order(newId);
-            tempOrders[_ordersCount].OrderClient = client;
-            tempOrders[_ordersCount].OrderTime = DateTime.UtcNow;
+            tempOrders[_ordersCount] = new Order { Id = newId, OrderClient = client, OrderTime = DateTime.UtcNow };
             tempOrders[_ordersCount].AddDevices(devices);
             _orders = tempOrders;
             _ordersCount++;

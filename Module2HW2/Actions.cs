@@ -56,7 +56,7 @@ namespace Module2HW2
 
         public int ConfirmOrder()
         {
-            Client client = _clientService.GetClient(1);
+            var client = _clientService.GetClient(1);
             var orderDevices = _cart.Confirm();
             var orderNumber = _orderService.AddOrder(client, orderDevices);
             _deviceService.DeleteDevices(orderDevices);
@@ -103,8 +103,8 @@ namespace Module2HW2
 
         public void PaidOrder()
         {
-            Client client = _clientService.GetClient(1);
-            int orderNumber = _orderService.GetLastOrderId();
+            var client = _clientService.GetClient(1);
+            var orderNumber = _orderService.GetLastOrderId();
             _orderService.PaidOrder(orderNumber);
             _emailNotifier.SendEmail(client.Email, $"Вы успешно оплатили заказ № {orderNumber}");
             _smsNotifier.SendSMS(client.PhoneNumber, $"Вы успешно оплатили заказ № {orderNumber}");
