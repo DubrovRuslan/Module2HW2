@@ -14,7 +14,7 @@ namespace Module2HW2.Providers
             }
         }
 
-        public void AddClient(string firstName, string lastname, int age, string email)
+        public void AddClient(string firstName, string lastname, int age, string email, string phoneNumber)
         {
             var newId = (_clientCount == 0) ? 1 : _clients[_clientCount - 1].Id + 1;
             var clientsTemp = new Client[_clientCount + 1];
@@ -23,7 +23,7 @@ namespace Module2HW2.Providers
                 clientsTemp[i] = _clients[i];
             }
 
-            clientsTemp[_clientCount] = new Client(newId, firstName, lastname, age, email);
+            clientsTemp[_clientCount] = new Client { Id = newId, FirstName = firstName, LastName = lastname, Age = age, Email = email, PhoneNumber = phoneNumber };
             _clients = clientsTemp;
             _clientCount++;
         }

@@ -1,5 +1,6 @@
-﻿using Module2HW2.Entityes;
-using Module2HW2.Services;
+﻿using Module2HW2.Services;
+using Module2HW2.Notifications;
+using Module2HW2.Entityes;
 
 namespace Module2HW2
 {
@@ -10,6 +11,8 @@ namespace Module2HW2
         private readonly OrderService _orderService;
         private Cart _cart = Cart.Instance;
         private Logger _logger = Logger.Instance;
+        private EmailNotifier _emailNotifier = new EmailNotifier();
+        private SmsNotifier _smsNotifier = new SmsNotifier();
         public Actions()
         {
             _deviceService = new DeviceService();
@@ -17,9 +20,11 @@ namespace Module2HW2
             _orderService = new OrderService();
         }
 
-        public void NewClient(string firstName, string lastname, int age, string email)
+        public void NewClient(string firstName, string lastname, int age, string email, string phoneNumber)
         {
-            _clientService.AddClient(firstName, lastname, age, email);
+            _clientService.AddClient(firstName, lastname, age, email, phoneNumber);
+            _emailNotifier.SendEmail(email, $"Добро пожаловать {firstName} {lastname}");
+            _smsNotifier.SendSMS(phoneNumber, $"Добро пожаловать {firstName} {lastname}");
         }
 
         public void SomeTestDevices()
@@ -51,9 +56,12 @@ namespace Module2HW2
 
         public int ConfirmOrder()
         {
+            Client client = _clientService.GetClient(1);
             var orderDevices = _cart.Confirm();
-            var orderNumber = _orderService.AddOrder(_clientService.GetClient(1), orderDevices);
+            var orderNumber = _orderService.AddOrder(client, orderDevices);
             _deviceService.DeleteDevices(orderDevices);
+            _emailNotifier.SendEmail(client.Email, $"Вы успешно офрмили заказ № {orderNumber}");
+            _smsNotifier.SendSMS(client.PhoneNumber, $"Вы успешно офрмили заказ № {orderNumber}");
             return orderNumber;
         }
 
@@ -95,7 +103,11 @@ namespace Module2HW2
 
         public void PaidOrder()
         {
-            _orderService.PaidOrder(_orderService.GetLastOrderId());
+            Client client = _clientService.GetClient(1);
+            int orderNumber = _orderService.GetLastOrderId();
+            _orderService.PaidOrder(orderNumber);
+            _emailNotifier.SendEmail(client.Email, $"Вы успешно оплатили заказ № {orderNumber}");
+            _smsNotifier.SendSMS(client.PhoneNumber, $"Вы успешно оплатили заказ № {orderNumber}");
         }
     }
 }

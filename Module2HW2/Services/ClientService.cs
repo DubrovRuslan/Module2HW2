@@ -24,9 +24,9 @@ namespace Module2HW2.Services
             return null;
         }
 
-        public void AddClient(string firstName, string lastname, int age, string email)
+        public void AddClient(string firstName, string lastname, int age, string email, string phoneNumver)
         {
-            _clientProvider.AddClient(firstName, lastname, age, email);
+            _clientProvider.AddClient(firstName, lastname, age, email, phoneNumver);
         }
     }
 }

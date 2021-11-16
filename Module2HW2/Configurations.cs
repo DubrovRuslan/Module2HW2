@@ -18,6 +18,8 @@ namespace Module2HW2
 
         public int CartSize { get; set; }
         public Сurrency Currency { get; set; }
+        public string SmsServerNumber { get; set; }
+        public string SmtpServerAdress { get; set; }
         public static Configurations Instance
         {
             get

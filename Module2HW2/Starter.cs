@@ -6,11 +6,14 @@ namespace Module2HW2
     {
         private readonly Actions _actions = new Actions();
         private readonly Logger _logger = Logger.Instance;
+        private Configurations _config = Configurations.Instance;
         public void Run()
         {
-            Configurations.Instance.CartSize = 10;
-            Configurations.Instance.Currency = Сurrency.UAH;
-            _actions.NewClient("Fedya", "Pupkin", 36, "pupkin@gmail.com");
+            _config.CartSize = 10;
+            _config.Currency = Сurrency.UAH;
+            _config.SmsServerNumber = "+380123451235";
+            _config.SmtpServerAdress = "smtp.google.com";
+            _actions.NewClient("Fedya", "Pupkin", 36, "pupkin@gmail.com", "+380978350045");
             _logger.WriteToLog("ПРИШЕЛ НОВЫЙ КЛИЕНТ ПУПКИН");
             _actions.SomeTestDevices();
             _logger.WriteToLog("ТОВАРЫ СОЗДАНЫ НА СКЛАДЕ");
